@@ -1,9 +1,10 @@
 # Dice roller GUI
 
 ### Clone
+Fork from https://github.com/AnthisCareerAcademy/DICE_PM
 ```bash
-$ git clone https://github.com/MilkManMaki/pygame_dice.git
-$ cd pygame_dice # go into the repo
+$ git clone https://github.com/YOURGITHUBUSERNAME/DICE_PM.git
+$ cd DICE_PM # go into the repo
 ```
 
 ### Running the program
