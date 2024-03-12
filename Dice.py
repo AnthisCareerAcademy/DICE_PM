@@ -25,18 +25,17 @@ class Dice(Sprite):
         self.screen = main_game.screen
         self.screen_rect = main_game.screen.get_rect()
 
-        # Load the ship image and get its rect.
+        # Load the dice image and get its rect.
         self.image = pygame.image.load(self.mysprites[0])
-        self.rect = self.image.get_rect(center = self.screen.get_rect().center)
+        self.rect = self.image.get_rect(center=self.screen.get_rect().center)
         self.rect.midleft = self.screen_rect.midleft
-        self.x = float(self.rect.x)
 
     def roll(self) -> int:
         """ Roll the dice and return its value """
         if not self.is_held:
             holder = randint(1, self.sides)
             self.image = pygame.image.load(self.mysprites[holder])
-            self.image = pygame.transform.scale(self.image,(200,200))
+            self.image = pygame.transform.scale(self.image, (200, 200))
             return holder
         else:
             return False

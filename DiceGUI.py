@@ -1,8 +1,5 @@
 import pygame
 import sys
-
-from pygame import Color
-
 from Dice import Dice
 
 
@@ -21,46 +18,40 @@ class DiceGUI:
     def run(self):
         """Start the main loop for the game"""
         while True:
-            # self.sequence()
             self._check_events()
-            #self._update_die()
             self._update_screen()
             self.clock.tick(60)
 
-    def sequence(self):
-        # rolling dice cup move the cup diagonally side to side (Roll function)
-        for dice in self.die:
-            print(dice.roll())
-            if input("Hold?") == 'y':
-                dice.hold()
-
     def _check_events(self):
-        """Respond to keypresses and mouse events."""
+        """Respond to key presses and mouse events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                print("down event")
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                print("up event")
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                print("Mouse up")
-                pos = pygame.mouse.get_pos()
-
-                # get a list of all sprites that are under the mouse cursor
-                # Find out what die is under the mouse cursur when clicked. Change held to 'true'
-                # clicked_sprites = [s for s in self.die if s.rect.collidepoint(pos)]
-                # print(clicked_sprites)
-
+                self._click_die()
 
     def _check_keydown_events(self, event):
-        """Respond to keypresses."""
+        """Respond to key presses."""
         if event.key == pygame.K_q:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._next_die()
+
+    def _check_keyup_events(self, event):
+        """Respond to key releases."""
+        pass
+
+    def _click_die(self):
+        pos = pygame.mouse.get_pos()
+
+        # get a list of all sprites that are under the mouse cursor
+        # Find out what die is under the mouse cursor when clicked. Change held to 'true'
+        # clicked_sprites = [s for s in self.die if s.rect.collidepoint(pos)]
+        # print(clicked_sprites)
 
     def _next_die(self):
         """ Add new dice to die list. Sprite group """
@@ -68,11 +59,6 @@ class DiceGUI:
             new_die = Dice(self)
             new_die.roll()
             self.die.add(new_die)
-
-    def _check_keyup_events(self, event):
-        """Respond to key releases."""
-        pass
-
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""

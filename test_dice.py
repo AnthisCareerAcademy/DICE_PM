@@ -13,14 +13,14 @@ def test_hold_when_false(our_dice):
     """ Make sure holding works """
     our_dice.is_held = False
     our_dice.hold()
-    assert our_dice.is_held == True
+    assert our_dice.is_held
 
 
 def test_hold_when_true(our_dice):
     """ Make sure holding works """
     our_dice.is_held = True
     our_dice.hold()
-    assert our_dice.is_held == False
+    assert not our_dice.is_held
 
 
 def test_roll(our_dice):
