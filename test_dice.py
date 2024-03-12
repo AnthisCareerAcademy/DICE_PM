@@ -5,7 +5,7 @@ from Dice import Dice
 @pytest.fixture
 def our_dice():
     """ Dice that will be used for all tests """
-    our_dice = Dice()
+    our_dice = Dice(6)
     return our_dice
 
 
