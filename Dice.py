@@ -6,7 +6,7 @@ import pygame
 class Dice(Sprite):
     """ Dice class"""
 
-    def __init__(self, main_game):
+    def __init__(self, main_game, id):
         """Initiate our dice"""
         self.mysprites = {
             0: 'sprites/dice-six-faces-none.bmp',
@@ -21,6 +21,7 @@ class Dice(Sprite):
         }
         super().__init__()
         self.sides = 6
+        self.id = id
         self.is_held = False
         self.screen = main_game.screen
         self.screen_rect = main_game.screen.get_rect()
@@ -43,6 +44,8 @@ class Dice(Sprite):
     def hold(self):
         """ Hold the dice so it cannot be rolled"""
         self.is_held = not self.is_held
+        self.image = pygame.image.load(self.mysprites[0])
+        self.image = pygame.transform.scale(self.image, (200, 200))
 
     def draw_die(self, givenx):
         """ Draw the dice at its current location """
