@@ -30,6 +30,8 @@ class Dice(Sprite):
         self.image = pygame.image.load(self.mysprites[0])
         self.rect = self.image.get_rect(center=self.screen.get_rect().center)
         self.rect.midleft = self.screen_rect.midleft
+        self.x = self.rect.x
+        self.y = self.rect.y
 
     def roll(self) -> int:
         """ Roll the dice and return its value """
@@ -49,4 +51,7 @@ class Dice(Sprite):
 
     def draw_die(self, givenx):
         """ Draw the dice at its current location """
-        self.screen.blit(self.image, self.rect.move(givenx, 125))
+        self.x = givenx
+        self.y = 125
+        #self.rect.move(givenx, 125)
+        self.screen.blit(self.image, (self.x, self.y))
