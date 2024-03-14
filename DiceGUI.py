@@ -31,8 +31,9 @@ class DiceGUI:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                self._click_die()
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    self._update_die(event)
 
     def _check_keydown_events(self, event):
         """Respond to key presses."""
@@ -45,8 +46,20 @@ class DiceGUI:
         """Respond to key releases."""
         pass
 
-    def _click_die(self):
-        pos = pygame.mouse.get_pos()
+    def _update_die(self, event):
+        # Only one dice can be clicked at a time. We need to check what dice is clicked each click.
+        pos = event.pos
+
+        # get a list of all sprites that are under the mouse cursor
+        clicked_sprites = [dice.hold() for dice in self.die if dice.rect.collidepoint(pos)]
+        clicked_sprites.clear()
+        # do something with the clicked sprites...pos = pygame.mouse.get_pos()
+        #
+        #       # get a list of all sprites that are under the mouse cursor
+        #       clicked_sprites = [s for s in sprites if s.rect.collidepoint(pos)]
+        #       # do something with the clicked sprites...
+
+        # print("Clicked!", pos)
 
         # get a list of all sprites that are under the mouse cursor
         # Find out what die is under the mouse cursor when clicked. Change held to 'true'
@@ -56,7 +69,7 @@ class DiceGUI:
     def _next_die(self):
         """ Add new dice to die list. Sprite group """
         if len(self.die) < 6:
-            new_die = Dice(self)
+            new_die = Dice(self, len(self.die))
             new_die.roll()
             self.die.add(new_die)
 
