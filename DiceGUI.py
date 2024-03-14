@@ -20,7 +20,6 @@ class DiceGUI:
         self.second_intro_text = self.second_intro_font.render("Welcome to the Yahtzee Game!", True, (0, 0, 0))
         self.second_intro_complete = False
 
-
     def run(self):
         """Start the main loop for the game"""
         self._show_introduction_screen()
@@ -29,12 +28,14 @@ class DiceGUI:
             if self.second_intro_complete:
                 self._update_screen()
             self.clock.tick(60)
+
     def _show_introduction_screen(self):
         """Display the introduction screen"""
         while not self.second_intro_complete:
             self.screen.fill((255, 255, 255))
-            self.screen.blit(self.second_intro_text, (self.screen.get_width() // 2 - self.second_intro_text.get_width() // 2,
-                                                      self.screen.get_height() // 2 - self.second_intro_text.get_height() // 2))
+            self.screen.blit(self.second_intro_text,
+                             (self.screen.get_width() // 2 - self.second_intro_text.get_width() // 2,
+                              self.screen.get_height() // 2 - self.second_intro_text.get_height() // 2))
             pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
