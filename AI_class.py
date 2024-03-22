@@ -1,3 +1,4 @@
+import random
 
 
 class AI:
@@ -21,7 +22,13 @@ class AI:
             "Chance": None
         }
 
+    def roll_die(self):
+        """Lets the AI roll the die"""
+        for die in range(0, 5):
+            self.hand[die] = random.randint(1, 6)
+
     def check_yahtzee(self):
+        """Allows AI to check for a yahtzee after rolling"""
         same_number = 0
         for die in self.hand:
             if die == self.hand[0]:
