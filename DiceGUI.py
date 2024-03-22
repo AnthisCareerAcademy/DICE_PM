@@ -14,6 +14,10 @@ class DiceGUI:
         pygame.display.set_caption("Dice GUI")
 
         self.die = []
+        while len(self.die) < 5:
+            new_dice = Dice(self, len(self.die))
+            new_dice.roll()
+            self.die.append(new_dice)
 
     def run(self):
         """Start the main loop for the game"""
@@ -57,28 +61,29 @@ class DiceGUI:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONUP:
+                # if mouse click is left mouse button
                 if event.button == 1:
-                    self._update_die()
+                    self._update_die(event)
 
     def _check_keydown_events(self, event):
         """Respond to key presses."""
         if event.key == pygame.K_q:
             sys.exit()
-        elif event.key == pygame.K_SPACE:
-            self._next_die()
+        if event.key == pygame.K_SPACE:
+            for die in self.die:
+                if not die.is_held:
+                    die.roll()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
         pass
 
-    def _update_die(self):
-
+    def _update_die(self, event):
+        # check mouse position
         pos = pygame.mouse.get_pos()
         for die in self.die:
-            if die.rect.collidepoint(pos):
+            if die.x < event.pos[0] < die.x + die.width and die.y < event.pos[1] < die.y + die.height:
                 die.hold()
-                if not die.is_held:
-                    die.roll()
 
         # Only one dice can be clicked at a time. We need to check what dice is clicked each click.
         # pos = event.pos
@@ -100,20 +105,11 @@ class DiceGUI:
     # clicked_sprites = [s for s in self.die if s.rect.collidepoint(pos)]
     # print(clicked_sprites)
 
-    def _next_die(self):
-        """ Add new dice to die list. Sprite group """
-        if len(self.die) < 6:
-            new_dice = Dice(self, len(self.die))
-            new_dice.roll()
-            self.die.append(new_dice)
-
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill('#FFFDD0')
-        offby = 0
         for dice in self.die:
-            dice.draw_die(offby)
-            offby += 273
+            dice.draw_die()
 
         pygame.display.flip()
 
