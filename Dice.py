@@ -35,7 +35,7 @@ class Dice(Sprite):
         self.width = self.rect.width
         self.height = self.rect.height
 
-    def roll(self) -> int:
+    def roll(self):
         """ Roll the dice and return its value """
         if not self.is_held:
             holder = randint(1, self.sides)
@@ -47,11 +47,11 @@ class Dice(Sprite):
 
     def draw_die(self):
         """ Draw the dice at its current location """
-        self.x = self.id * 273
+        self.x = self.id * 300 + 50
         self.y = 125
-        # self.rect.move(givenx, 125)
 
+        amt = 20
         # Highlight dice that are held (FEATURE)
-        # if self.is_held:
-        #     pygame.draw.rect(self.screen, (255, 0, 0), (self.x, self.y, self.width, self.height), 10)
+        if self.is_held:
+            pygame.draw.rect(self.screen, (151, 74, 181), (self.x - amt/2, self.y - amt/2, self.width + amt, self.height + amt), 10)
         self.screen.blit(self.image, (self.x, self.y))
